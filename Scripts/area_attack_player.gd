@@ -13,7 +13,10 @@ func _process(delta: float) -> void:
 	update_area()
 
 func update_area():
-	if not sprite.flip_h:
-		pivot.rotation_degrees = 0
-	else:
-		pivot.rotation_degrees = 180
+	attack_r.disabled = true
+	attack_l.disabled = true
+	#if player.current_state == ATTACK_MELEE:
+		#if not animated_sprite.flip_h:
+			#attack_r.disabled = false
+		#else:
+			#attack_l.disabled = false
