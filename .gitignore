@@ -1,0 +1,15 @@
+# Godot
+.godot/
+
+# Exportaciones
+export_presets.cfg
+*.apk
+*.aab
+*.exe
+*.x86_64
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
