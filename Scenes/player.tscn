@@ -2,6 +2,106 @@
 
 [ext_resource type="Script" uid="uid://b77hbenhvtpqh" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ygovep3wg1ha" path="res://Assets/Sprites/SPRITE_SHEET.png" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://yi2aj8qgh1q2" path="res://Scripts/area_attack_player.gd" id="3_6t5aa"]
+
+[sub_resource type="Animation" id="Animation_6t5aa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vgqql"]
+resource_name = "attack_melee"
+length = 0.7
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [30, 31, 32, 33, 34, 35, 36]
+}
+
+[sub_resource type="Animation" id="Animation_fkybt"]
+resource_name = "falling"
+
+[sub_resource type="Animation" id="Animation_x3wgy"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.53333336, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_3smsa"]
+resource_name = "jump"
+
+[sub_resource type="Animation" id="Animation_8erm5"]
+resource_name = "run"
+length = 1.05
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.53333336, 0.6666667, 0.8, 0.93333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_f1ek2"]
+resource_name = "run_stop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tx1dd"]
+_data = {
+&"RESET": SubResource("Animation_6t5aa"),
+&"attack_melee": SubResource("Animation_vgqql"),
+&"falling": SubResource("Animation_fkybt"),
+&"idle": SubResource("Animation_x3wgy"),
+&"jump": SubResource("Animation_3smsa"),
+&"run": SubResource("Animation_8erm5"),
+&"run_stop": SubResource("Animation_f1ek2")
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("1_v0iea")
@@ -305,15 +405,41 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqm"]
 size = Vector2(5, 12)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+radius = 5.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1162249314]
 script = ExtResource("1_cvnsp")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1677126631]
+libraries/ = SubResource("AnimationLibrary_tx1dd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1611964813]
+texture = ExtResource("1_v0iea")
+hframes = 10
+vframes = 11
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1345005574]
+visible = false
 sprite_frames = SubResource("SpriteFrames_xwi16")
 animation = &"idle"
+frame = 2
+frame_progress = 0.230533
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=431747656]
 position = Vector2(1.5, 5)
 shape = SubResource("RectangleShape2D_sweqm")
+
+[node name="area-attack" type="Area2D" parent="." unique_id=272831350]
+visible = false
+script = ExtResource("3_6t5aa")
+
+[node name="attackR" type="CollisionShape2D" parent="area-attack" unique_id=1955784532]
+position = Vector2(9, 4)
+shape = SubResource("CircleShape2D_vgqql")
+
+[node name="attackL" type="CollisionShape2D" parent="area-attack" unique_id=1737870678]
+position = Vector2(-8, 4)
+shape = SubResource("CircleShape2D_vgqql")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
