@@ -15,8 +15,8 @@ func _process(delta: float) -> void:
 func update_area():
 	attack_r.disabled = true
 	attack_l.disabled = true
-	if player.current_state == ATTACK_MELEE:
-		if not animated_sprite.flip_h:
-			attack_r.disabled = false
-		else:
-			attack_l.disabled = false
+	#if player.current_state == ATTACK_MELEE:
+		#if not animated_sprite.flip_h:
+			#attack_r.disabled = false
+		#else:
+			#attack_l.disabled = false
