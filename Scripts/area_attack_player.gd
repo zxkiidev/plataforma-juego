@@ -1,16 +1,16 @@
 extends Area2D
 
-var animated_sprite : AnimatedSprite2D
-var player : CharacterBody2D
-@onready var attack_r: CollisionShape2D = $attackR
-@onready var attack_l: CollisionShape2D = $attackL
+var sprite : Sprite2D
+var pivot : Node2D
+var are
 
 func _ready() -> void:
-	player = get_parent()
-	animated_sprite = get_node("../AnimatedSprite2D")
+	
+	sprite = get_node("../../Sprite2D")
+	pivot = get_parent()
 
 func _process(delta: float) -> void:
-	pass
+	update_area()
 
 func update_area():
 	attack_r.disabled = true

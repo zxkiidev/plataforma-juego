@@ -6,7 +6,8 @@ var current_state = State.IDLE
 @export var SPEED = 150.0
 @export var JUMP_VELOCITY = -280.0
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var last_look = "right"
 var previous_state = State.IDLE  
@@ -50,15 +51,15 @@ func check_state_transitions():
 func play_state_animation():
 	if current_state != previous_state:  
 		match current_state:
-			State.IDLE: animated_sprite_2d.play("idle")
-			State.RUN: animated_sprite_2d.play("run")
-			State.JUMP: animated_sprite_2d.play("jump")
-			State.FALLING: animated_sprite_2d.play("falling")
-			State.ATTACK_MELEE: animated_sprite_2d.play("attack_melee")
+			State.IDLE: animation_player.play("idle")
+			State.RUN: animation_player.play("run")
+			State.JUMP: animation_player.play("jump")
+			State.FALLING: animation_player.play("falling")
+			State.ATTACK_MELEE: animation_player.play("attack_melee")
 		previous_state = current_state
 
-	animated_sprite_2d.flip_h = (last_look == "left")
+	sprite.flip_h = (last_look == "left")
 
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if current_state == State.ATTACK_MELEE:
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "attack_melee":
 		current_state = State.IDLE
