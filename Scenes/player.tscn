@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://ygovep3wg1ha" path="res://Assets/Sprites/SPRITE_SHEET.png" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://yi2aj8qgh1q2" path="res://Scripts/area_attack_player.gd" id="3_6t5aa"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
+radius = 3.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+radius = 5.0
+
 [sub_resource type="Animation" id="Animation_6t5aa"]
 length = 0.001
 tracks/0/type = "value"
@@ -112,7 +119,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8erm5"]
 resource_name = "run"
-length = 1.05
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -121,7 +128,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.53333336, 0.6666667, 0.8, 0.93333334),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [10, 11, 12, 13, 14, 15, 16, 17]
@@ -154,17 +161,134 @@ _data = {
 &"run_stop": SubResource("Animation_f1ek2")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqm"]
-size = Vector2(6, 12)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6t5aa"]
+animation = &"attack_melee"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
-radius = 5.0
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vgqql"]
+animation = &"falling"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_fkybt"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x3wgy"]
+graph_offset = Vector2(-327.0956, 37.402832)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_vgqql")
+nodes/Animation/position = Vector2(-160, 106.666664)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_fkybt")
+nodes/TimeScale/position = Vector2(80, 106.666664)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3smsa"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_8erm5"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_f1ek2"]
+graph_offset = Vector2(-206.93913, -7.2347817)
+nodes/output/position = Vector2(506.66666, 106.666664)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_3smsa")
+nodes/Animation/position = Vector2(-26.666666, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_8erm5")
+nodes/TimeScale/position = Vector2(240, 53.333332)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tx1dd"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gymyn"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_pu2lt"]
+graph_offset = Vector2(-359.8087, 48.30721)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_tx1dd")
+nodes/Animation/position = Vector2(-213.33333, 106.666664)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_gymyn")
+nodes/TimeScale/position = Vector2(53.333332, 106.666664)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukyrk"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7dp3o"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_h4iuc"]
+graph_offset = Vector2(-316.1913, 26.498535)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_ukyrk")
+nodes/Animation/position = Vector2(-160, 106.666664)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_7dp3o")
+nodes/TimeScale/position = Vector2(80, 80)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fd4e3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qqcod"]
+advance_condition = &"is_jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_igrcy"]
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fs7ks"]
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6n3p"]
+advance_condition = &"is_falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_olqyp"]
+switch_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wpjfl"]
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bi64h"]
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2ijsl"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p1odr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0gysh"]
+switch_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vfarp"]
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y6uwr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_83xs0"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ypfnu"]
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6t5aa"]
+advance_condition = &"is_jumping"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xuaoq"]
+states/End/position = Vector2(833.3334, 124)
+states/Start/position = Vector2(70.66667, 119.40742)
+states/attack_melee/node = SubResource("AnimationNodeAnimation_6t5aa")
+states/attack_melee/position = Vector2(475.33328, 286.5824)
+states/falling/node = SubResource("AnimationNodeBlendTree_x3wgy")
+states/falling/position = Vector2(581.4568, -11.985489)
+states/idle/node = SubResource("AnimationNodeBlendTree_f1ek2")
+states/idle/position = Vector2(234.74072, 118.22223)
+states/jump/node = SubResource("AnimationNodeBlendTree_pu2lt")
+states/jump/position = Vector2(385.86832, -11.552018)
+states/run/node = SubResource("AnimationNodeBlendTree_h4iuc")
+states/run/position = Vector2(734, 119.52299)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_qqcod"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_igrcy"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_fs7ks"), "jump", "falling", SubResource("AnimationNodeStateMachineTransition_l6n3p"), "falling", "idle", SubResource("AnimationNodeStateMachineTransition_olqyp"), "idle", "attack_melee", SubResource("AnimationNodeStateMachineTransition_wpjfl"), "run", "attack_melee", SubResource("AnimationNodeStateMachineTransition_bi64h"), "attack_melee", "run", SubResource("AnimationNodeStateMachineTransition_2ijsl"), "attack_melee", "idle", SubResource("AnimationNodeStateMachineTransition_p1odr"), "falling", "run", SubResource("AnimationNodeStateMachineTransition_0gysh"), "jump", "attack_melee", SubResource("AnimationNodeStateMachineTransition_vfarp"), "attack_melee", "jump", SubResource("AnimationNodeStateMachineTransition_y6uwr"), "attack_melee", "falling", SubResource("AnimationNodeStateMachineTransition_83xs0"), "falling", "attack_melee", SubResource("AnimationNodeStateMachineTransition_ypfnu"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_6t5aa")]
+graph_offset = Vector2(-118.52368, 41.997574)
 
 [node name="Player" type="CharacterBody2D" unique_id=1162249314]
 script = ExtResource("1_cvnsp")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1677126631]
-libraries/ = SubResource("AnimationLibrary_tx1dd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1611964813]
 texture = ExtResource("1_v0iea")
@@ -172,8 +296,8 @@ hframes = 10
 vframes = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=431747656]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_sweqm")
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_6t5aa")
 
 [node name="Pivot" type="Node2D" parent="." unique_id=485985877]
 position = Vector2(0, 4)
@@ -184,5 +308,25 @@ script = ExtResource("3_6t5aa")
 [node name="collision-attack" type="CollisionShape2D" parent="Pivot/area-attack" unique_id=1955784532]
 position = Vector2(9, 0)
 shape = SubResource("CircleShape2D_vgqql")
+
+[node name="RayCast2D" type="RayCast2D" parent="Pivot" unique_id=22137809]
+position = Vector2(-5, 0)
+target_position = Vector2(0, 9)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1677126631]
+libraries/ = SubResource("AnimationLibrary_tx1dd")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1875405526]
+tree_root = SubResource("AnimationNodeStateMachine_xuaoq")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_attacking = false
+parameters/conditions/is_falling = false
+parameters/conditions/is_idle = false
+parameters/conditions/is_jumping = false
+parameters/conditions/is_moving = true
+parameters/falling/TimeScale/scale = 1.0
+parameters/idle/TimeScale/scale = 1.0
+parameters/jump/TimeScale/scale = 1.0
+parameters/run/TimeScale/scale = 1.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

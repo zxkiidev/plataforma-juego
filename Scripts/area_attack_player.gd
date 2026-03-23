@@ -1,19 +1,13 @@
 extends Area2D
 
-var sprite : Sprite2D
-var pivot : Node2D
-var are
+@onready var sprite : Sprite2D = get_node("../../Sprite2D")
+@onready var pivot : Node2D = get_parent()
 
-func _ready() -> void:
-	
-	sprite = get_node("../../Sprite2D")
-	pivot = get_parent()
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_area()
 
 func update_area():
 	if not sprite.flip_h:
-		pivot.rotation_degrees = 0
+		pivot.scale.x = 1 
 	else:
-		pivot.rotation_degrees = 180
+		pivot.scale.x = -1
