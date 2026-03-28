@@ -5,13 +5,15 @@
 
 [node name="main" type="Node2D" unique_id=1913840128]
 
-[node name="CharacterBody2D" parent="." unique_id=1162249314 instance=ExtResource("1_jjgbg")]
+[node name="CharacterBody2D" parent="." unique_id=1162249314 groups=["Jugador"] instance=ExtResource("1_jjgbg")]
 position = Vector2(146, 128)
 
 [node name="Camera2D2" type="Camera2D" parent="CharacterBody2D" unique_id=47347322]
 zoom = Vector2(0.975, 0.975)
-limit_left = 1
-limit_bottom = 170
+limit_left = -47
+limit_top = 20
+limit_right = 3924
+limit_bottom = 180
 
 [node name="Map" parent="." unique_id=139117963 instance=ExtResource("2_bo1nx")]
 z_index = -4096
