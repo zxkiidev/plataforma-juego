@@ -15,19 +15,28 @@ func _process(_delta):
 		abrir_dialogo()
 
 func abrir_dialogo():
-	# Bloqueamos al jugador (puedes ajustar el nombre de la función según lo que use tu amigo)
 	var jugador = get_tree().get_first_node_in_group("Jugador")
-	if jugador.has_method("set_physics_process"):
+	if jugador and jugador.has_method("set_physics_process"):
 		jugador.set_physics_process(false) 
 	
-	# LANZAR EL DIÁLOGO
-	# "res://dialogos/historia.dialogue" es la ruta de tu archivo
-	# "estatua_antigua" es el nombre después del ~
-	DialogueManager.show_example_dialogue_balloon(load("res://Dialogues/test.dialogue"), "estatua_antigua")
+	# 1. Cargamos la escena de TU Balloon
+	var balloon_scene = load("res://Dialogues/balloon.tscn")
+	var balloon = balloon_scene.instantiate()
 	
-	# Esperar a que el diálogo se cierre para liberar al jugador
+	# 2. Lo añadimos a la pantalla (al árbol de escenas)
+	get_tree().current_scene.add_child(balloon)
+	
+	# 3. Cargamos el recurso de diálogo
+	var dialogue_resource = load("res://Dialogues/test.dialogue")
+	
+	# 4. Usamos la función 'start' que ya viene en tu script de Balloon
+	# start(recurso, "título")
+	balloon.start(dialogue_resource, "estatua_antigua")
+	
+	# 5. Esperar a que el diálogo se cierre
 	await DialogueManager.dialogue_ended
-	if jugador.has_method("set_physics_process"):
+	
+	if jugador and jugador.has_method("set_physics_process"):
 		jugador.set_physics_process(true)
 
 func _on_body_entered(body: Node2D) -> void:
