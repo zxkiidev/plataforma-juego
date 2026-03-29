@@ -11,3 +11,11 @@ Wanderer: La piedra está agrietada, pero aún emana un rastro de calor.
 	=> estatua_antigua
 - Dejar de observar => END
 
+~ npc_dialogo_1
+Npc2: [[Hola!|Como estas?|Hey!]]
+Wanderer: Hola! Tenia unas preguntas...
+- Pregunta 1
+	Npc2: Si esta es.
+- Pregunta 2
+	Npc2: No esta no es.
+- No preguntar nada => END
