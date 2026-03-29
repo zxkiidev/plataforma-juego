@@ -1,13 +1,13 @@
 ~ estatua_antigua
-Jugador: (Es una efigie de los Primeros Tejedores de Estrellas...)
-Jugador: La piedra está agrietada, pero aún emana un rastro de calor.
+Wanderer: La piedra está agrietada, pero aún emana un rastro de calor.
 - Leer la inscripción de la base
-	Estatua: "Aquel que viste el manto carmesí caminará por el abismo para devolver el brillo al firmamento."
-	Jugador: Habla de mi orden... o de lo que queda de ella.
+	Npc: "Aquel que viste el manto carmesí caminará por el abismo para devolver el brillo al firmamento."
+	Wanderer: Habla de mi orden... o de lo que queda de ella.
 	=> estatua_antigua
 - Tocar la mano de la estatua
-	Jugador: Siento un leve pulso eléctrico. 
-	Jugador: No es piedra común, es roca estelar forjada.
+	npc: "La estatua libera algo..."
+	Wanderer: Siento un leve pulso eléctrico. 
+	Wanderer: No es piedra común, es roca estelar forjada.
 	=> estatua_antigua
 - Dejar de observar => END
 
