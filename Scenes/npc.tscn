@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://d2dwln2pg1m6d"]
+
+[ext_resource type="Script" uid="uid://dgo7kmfwsmdsq" path="res://Scripts/npc.gd" id="1_g6unj"]
+[ext_resource type="Texture2D" uid="uid://b6ck4bly4wrwm" path="res://Assets/Sprites/Npc/003.png" id="2_h1ryf"]
+[ext_resource type="Texture2D" uid="uid://b5onafdc3a2ok" path="res://Assets/Keyboard/e.png" id="3_1ig1v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6atyd"]
+atlas = ExtResource("2_h1ryf")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xkex"]
+atlas = ExtResource("2_h1ryf")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gudg"]
+atlas = ExtResource("2_h1ryf")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi7up"]
+atlas = ExtResource("2_h1ryf")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6nw3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6atyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xkex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gudg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi7up")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4syp"]
+radius = 16.03122
+
+[node name="Npc" type="StaticBody2D" unique_id=1263598893]
+script = ExtResource("1_g6unj")
+titulo_bloque_dialogo = "npc_dialogo_1"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=171985491]
+sprite_frames = SubResource("SpriteFrames_a6nw3")
+autoplay = "default"
+
+[node name="AreaInteraccion" type="Area2D" parent="." unique_id=830981923]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaInteraccion" unique_id=1204176251]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_b4syp")
+
+[node name="IconoE" type="Sprite2D" parent="." unique_id=9397582]
+visible = false
+position = Vector2(0, -26)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("3_1ig1v")

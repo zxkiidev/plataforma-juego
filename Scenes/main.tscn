@@ -2,11 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://ci5iuaoqh6qvr" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://c7no3m2g8l5h4" path="res://Scenes/World/zona1_selva.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://d2dwln2pg1m6d" path="res://Scenes/npc.tscn" id="3_8gbba"]
 
 [node name="main" type="Node2D" unique_id=1913840128]
 
+[node name="Npc" parent="." unique_id=1263598893 instance=ExtResource("3_8gbba")]
+position = Vector2(582, 148)
+scale = Vector2(0.72, 0.72)
+
 [node name="CharacterBody2D" parent="." unique_id=1162249314 groups=["Jugador"] instance=ExtResource("1_jjgbg")]
-position = Vector2(812, 142)
+position = Vector2(615, 146)
 
 [node name="Camera2D2" type="Camera2D" parent="CharacterBody2D" unique_id=47347322]
 zoom = Vector2(0.975, 0.975)
